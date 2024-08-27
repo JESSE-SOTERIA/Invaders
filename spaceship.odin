@@ -11,8 +11,8 @@ new_spaceship :: proc() -> Spaceship {
 	ship: Spaceship
 
 	ship.image = rl.LoadTexture("graphics/invaders2/player.png")
-	ship.position.x = 100
-	ship.position.y = 100
+	ship.position.x = f32((rl.GetScreenWidth() - ship.image.width) / 2)
+	ship.position.y = f32(rl.GetScreenHeight() - ship.image.height)
 
 	return ship
 }
@@ -22,10 +22,10 @@ delete_spaceship :: proc(ship: ^Spaceship) {
 	rl.UnloadTexture(ship.image)
 }
 
-Spaceship_draw :: proc(ship: ^Spaceship) {
+draw_spaceship :: proc(ship: ^Spaceship) {
 	rl.DrawTextureV(ship.image, ship.position, rl.WHITE)
 }
 
-Spaceship_firelaser :: proc() {
+firelaser_spaceship :: proc() {
 
 }

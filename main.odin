@@ -7,14 +7,16 @@ main :: proc() {
 	rl.InitWindow(900, 600, "spaceInvaders")
 	rl.SetTargetFPS(250)
 
-	player := new_spaceship()
+	game := new_game()
 	for !rl.WindowShouldClose() {
+		//NOTE: handle player input
+		handle_input_game(&game)
+
 		rl.BeginDrawing()
-		rl.ClearBackground({150, 190, 220, 255})
-		Spaceship_draw(&player)
+		rl.ClearBackground({0, 0, 0, 1})
+		draw_game(&game)
 		rl.EndDrawing()
 	}
-
-	delete_spaceship(&player)
+	free_everything_game(&game)
 	rl.CloseWindow()
 }
