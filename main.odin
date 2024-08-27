@@ -11,13 +11,15 @@ main :: proc() {
 	rl.SetTargetFPS(250)
 
 	game := new_game()
+	//laser := new_laser({100, 100}, -7)
 	for !rl.WindowShouldClose() {
-		//NOTE: handle player input
 		handle_input_game(&game)
+		update_game(&game)
 
 		rl.BeginDrawing()
 		rl.ClearBackground({0, 0, 0, 1})
 		draw_game(&game)
+		//draw_laser(&laser)
 		rl.EndDrawing()
 	}
 	free_everything_game(&game)

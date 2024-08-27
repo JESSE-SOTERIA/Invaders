@@ -22,21 +22,34 @@ new_game :: proc() -> Game {
 
 draw_game :: proc(game: ^Game) {
 	draw_spaceship(&game.player)
+
+	//draw lasers
+	for laser in game.player.lasers {
+		draw_laser(&laser)
+	}
 }
 
-update_game :: proc() {
-
+update_game :: proc(game: ^Game) {
+	//update lasers
+	for laser in game.player.lasers {
+		update_laser(&laser, game)
+	}
 }
 
 handle_input_game :: proc(game: ^Game) {
-	//player movement
-	if (rl.IsKeyDown(rl.KeyboardKey.A)) {
-		move_left_player(game)
-	} else if (rl.IsKeyDown(rl.KeyboardKey.D)) {
-		move_right_player(game)
-	}
 
-	//firing laser
+	switch {
+	case rl.IsKeyDown(rl.KeyboardKey.A):
+		move_left_player(game)
+
+	case rl.IsKeyDown(rl.KeyboardKey.D):
+		move_right_player(game)
+
+	case rl.IsKeyDown(rl.KeyboardKey.SPACE):
+		//just creates a new laser, the position of which is updated by the 
+		//update game function.
+		firelaser_spaceship(&game.player)
+	}
 
 }
 
