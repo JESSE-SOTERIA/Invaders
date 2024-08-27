@@ -1,5 +1,8 @@
 package main
 
+//NOTE: we can easily implement a power up system that boosts speed 
+//or a nerf system that reduces speed based on the speed values of the player.
+
 import rl "vendor:raylib"
 
 main :: proc() {
