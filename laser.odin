@@ -33,3 +33,4 @@ update_laser :: proc(laser: ^Laser, game: ^Game) {
 		}
 	}
 }
+

@@ -24,14 +24,15 @@ draw_game :: proc(game: ^Game) {
 	draw_spaceship(&game.player)
 
 	//draw lasers
-	for laser in game.player.lasers {
+	//loop by reference
+	for &laser in game.player.lasers {
 		draw_laser(&laser)
 	}
 }
 
 update_game :: proc(game: ^Game) {
 	//update lasers
-	for laser in game.player.lasers {
+	for &laser in game.player.lasers {
 		update_laser(&laser, game)
 	}
 }
