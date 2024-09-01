@@ -29,8 +29,6 @@ update_laser :: proc(laser: ^Laser, game: ^Game) {
 	if laser.active {
 		if i32(laser.position.y) > game.screen_height || laser.position.y < 0 {
 			laser.active = false
-			fmt.println("laser inactive\n")
 		}
 	}
 }
-
