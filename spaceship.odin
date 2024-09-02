@@ -27,7 +27,7 @@ new_spaceship :: proc() -> Spaceship {
 	return ship
 }
 
-//make sure you call this function when the window is closed.
+//TODO:make sure to call this function when the window is closed.
 delete_spaceship :: proc(ship: ^Spaceship) {
 	rl.UnloadTexture(ship.image)
 }
@@ -51,7 +51,8 @@ firelaser_spaceship :: proc(ship: ^Spaceship) {
 	}
 }
 
-update_and_delete_player_lasers :: proc(game: ^Game) {
+//updates all laser positions and deletes ones that are not in the viewport
+update_all_lasers :: proc(game: ^Game) {
 	for &laser, index in game.player.lasers {
 		if laser.active {
 			update_laser(&laser, game)

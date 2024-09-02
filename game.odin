@@ -5,6 +5,8 @@ import rl "vendor:raylib"
 
 Game :: struct {
 	player:        Spaceship,
+	aliens:        [dynamic]Spaceship,
+	barriers:      [dynamic]Barrier,
 	velocity:      Speed "defined in movement code",
 	screen_width:  i32,
 	screen_height: i32,
@@ -13,10 +15,14 @@ Game :: struct {
 new_game :: proc() -> Game {
 	game: Game
 	game.player = new_spaceship()
+	game.aliens = make([dynamic]Spaceship, 10, 15)
+	game.barriers = make([dynamic]Barrier, 10, 15)
 	game.velocity.x = 7
 	game.velocity.y = 7
 	game.screen_width = rl.GetScreenWidth()
 	game.screen_height = rl.GetScreenHeight()
+
+	append(&game.barriers, new_barrier({100, 100}))
 	return game
 }
 
@@ -27,11 +33,14 @@ draw_game :: proc(game: ^Game) {
 	for &laser in game.player.lasers {
 		draw_laser(&laser)
 	}
+	for &barrier in game.barriers {
+		draw_barrier(barrier)
+	}
 }
 
 update_game :: proc(game: ^Game) {
 	//update lasers
-	update_and_delete_player_lasers(game)
+	update_all_lasers(game)
 }
 
 handle_input_game :: proc(game: ^Game) {
