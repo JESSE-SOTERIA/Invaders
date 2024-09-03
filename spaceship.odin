@@ -7,6 +7,7 @@ import rl "vendor:raylib"
 
 Spaceship :: struct {
 	image:           rl.Texture2D,
+	health: i32,
 	position:        rl.Vector2,
 	lasers:          [dynamic]Laser,
 	stopwatch:       time.Stopwatch,
@@ -15,8 +16,9 @@ Spaceship :: struct {
 
 new_spaceship :: proc() -> Spaceship {
 	ship: Spaceship
-	lasers := make([dynamic]Laser, 1, 7)
+	lasers := make([dynamic]Laser, 1, 11)
 
+	ship.health = 30
 	ship.image = rl.LoadTexture("graphics/invaders2/player.png")
 	ship.position.x = f32((rl.GetScreenWidth() - ship.image.width) / 2)
 	ship.position.y = f32(rl.GetScreenHeight() - ship.image.height)
@@ -34,7 +36,6 @@ delete_spaceship :: proc(ship: ^Spaceship) {
 
 draw_spaceship :: proc(ship: ^Spaceship) {
 	rl.DrawTextureV(ship.image, ship.position, rl.WHITE)
-
 }
 
 firelaser_spaceship :: proc(ship: ^Spaceship) {

@@ -10,6 +10,7 @@ Laser :: struct {
 }
 
 
+//pass negative values of speed for opposite travelling lasers
 new_laser :: proc(position: rl.Vector2, speed: f32) -> Laser {
 	laser: Laser
 	laser.position = position

@@ -1,4 +1,5 @@
 package main
+import "core:fmt"
 import rl "vendor:raylib"
 
 
@@ -28,9 +29,9 @@ new_barrier :: proc(position: rl.Vector2) -> Barrier {
 }
 
 
-draw_barrier :: proc(barrier: Barrier) {
+draw_barrier :: proc(barrier: ^Barrier) {
 	if barrier.health <= 0 {
-		delete_barrier(barrier)
+		delete_barrier(barrier^)
 		return
 	} else {
 		rl.DrawRectangle(
@@ -44,7 +45,7 @@ draw_barrier :: proc(barrier: Barrier) {
 			i32(barrier.hitbox.x),
 			i32(barrier.hitbox.y),
 			i32(barrier.hitbox.width),
-			i32(barrier.hitbox.height),
+			i32(barrier.height),
 			{255, 255, 255, 0},
 		)
 	}
