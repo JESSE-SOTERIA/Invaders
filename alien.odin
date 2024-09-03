@@ -9,7 +9,14 @@ new_alien :: proc(game: ^Game, position: Vec3, type: int) -> Spaceship {
 
 	//aliens have a fraction of the users health.
 	//the fraction can be improper for stronger aliens
-	alien.health = (1\type) * int(type)
+	//health decreases as the type increases(closer to the player in the beginning of the game)
+	//NOTE:prevent division by zero
+	if type == 0 {
+		alien.health = 2 * type
+	} else {
+		alien.health = 1 / type * int(type)
+	}
+
 	alien.image = game.alien_textures[type]
 	alien.position.x = position.x
 	alien.position.y = position.y
