@@ -31,7 +31,6 @@ new_barrier :: proc(position: rl.Vector2) -> Barrier {
 
 draw_barrier :: proc(barrier: ^Barrier) {
 	if barrier.health <= 0 {
-		delete_barrier(barrier^)
 		return
 	} else {
 		rl.DrawRectangle(
@@ -51,12 +50,3 @@ draw_barrier :: proc(barrier: ^Barrier) {
 	}
 }
 
-update_barrier :: proc(barrier: Barrier) {
-
-	if barrier.health == 0 {
-		delete_barrier(barrier)
-	}
-}
-
-delete_barrier :: proc(barrier: Barrier) {
-}

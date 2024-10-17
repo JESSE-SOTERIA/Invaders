@@ -1,16 +1,17 @@
 package main
 
 import "core:fmt"
-import "core:runtime"
+import "base:runtime"
 import "core:time"
 import rl "vendor:raylib"
 
 Spaceship :: struct {
 	image:           rl.Texture2D,
-	health: i32,
+	health:          i32,
 	position:        rl.Vector2,
 	lasers:          [dynamic]Laser,
 	stopwatch:       time.Stopwatch,
+	//TODO: @improvement: introduce time since last fire field to aid with fire reate calculations
 	fire_constraint: time.Duration,
 }
 
@@ -42,6 +43,7 @@ firelaser_spaceship :: proc(ship: ^Spaceship) {
 	if time.stopwatch_duration(ship.stopwatch) < ship.fire_constraint {
 		return
 	} else {
+	    //TODO: @improvement: make sure to use variables instead of hard values.
 		laser := new_laser(
 			{(ship.position.x + f32(ship.image.width / 2) - 2), ship.position.y}, //hard values dependent on the size of the Laser which also has hard values.
 			-6,
@@ -51,6 +53,9 @@ firelaser_spaceship :: proc(ship: ^Spaceship) {
 		time.stopwatch_start(&ship.stopwatch)
 	}
 }
+
+//TODO: @improvement: delete lasers at points where they are determined to be inactive
+// to remove check on every frame.
 
 //updates all laser positions and deletes ones that are not in the viewport
 update_all_lasers :: proc(game: ^Game) {
